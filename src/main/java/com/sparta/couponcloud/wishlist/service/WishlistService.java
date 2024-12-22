@@ -2,7 +2,6 @@ package com.sparta.couponcloud.wishlist.service;
 
 import com.sparta.couponcloud.products.entity.Product;
 import com.sparta.couponcloud.products.repository.ProductRepository;
-import com.sparta.couponcloud.products.service.ProductService;
 import com.sparta.couponcloud.users.entity.Users;
 import com.sparta.couponcloud.users.repository.UsersRepository;
 import com.sparta.couponcloud.wishlist.entity.Wishlist;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
