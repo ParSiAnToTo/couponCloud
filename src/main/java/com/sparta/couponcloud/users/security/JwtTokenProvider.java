@@ -28,7 +28,7 @@ public class JwtTokenProvider {
         this.refreshTokenExpiration = jwtConfig.getRefreshTokenExpiration();
     }
 
-    public String generateAccessToken(int userId, Role role) {
+    public String generateAccessToken(Long userId, Role role) {
         return Jwts.builder()
                 .subject("access-token")
                 .claim("userId", userId)
@@ -39,7 +39,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String generateRefreshToken(int userId, Role role) {
+    public String generateRefreshToken(Long userId, Role role) {
         return Jwts.builder()
                 .subject("refresh-token")
                 .claim("userId", userId)
