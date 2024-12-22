@@ -6,7 +6,6 @@ import com.sparta.couponcloud.users.repository.UsersRepository;
 import com.sparta.couponcloud.users.request.LoginRequestDto;
 import com.sparta.couponcloud.users.request.SignupRequestDto;
 import com.sparta.couponcloud.users.security.JwtTokenProvider;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
