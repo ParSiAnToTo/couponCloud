@@ -34,14 +34,14 @@ public class OrderProduct {
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    public OrderProduct(Product product, String productName, Long price, int quantity) {
+    public OrderProduct(Orders orders, Product product, int quantity) {
+        this.orders = orders;
         this.product = product;
-        this.productName = productName;
-        this.price = price;
+        this.productName = product.getProductName();
+        this.price = product.getPrice();
         this.quantity = quantity;
     }
 
-    // Orders와의 양방향 관계 설정
     public void setOrders(Orders orders) {
         this.orders = orders;
     }
