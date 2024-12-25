@@ -43,10 +43,21 @@ public class Orders {
         this.orderDate = LocalDateTime.now();
     }
 
-    public Orders(Users users, List<OrderProduct> orderProducts) {
+    public Orders(Users users, OrderStatus orderStatus) {
         this.users = users;
-        this.orderStatus = OrderStatus.배송준비중;
-        this.orderProducts = orderProducts;
-        orderProducts.forEach(orderProduct -> orderProduct.setOrders(this));
+        this.orderStatus = orderStatus;
+    }
+
+    public void addOrderProduct(OrderProduct orderProduct) {
+        this.orderProducts.add(orderProduct);
+        orderProduct.setOrders(this);
+    }
+
+    public void updateOrderStatus(OrderStatus newStatus) {
+        this.orderStatus = newStatus;
+    }
+
+    public void updateReturnStatus(ReturnStatus newStatus) {
+        this.returnStatus = newStatus;
     }
 }
