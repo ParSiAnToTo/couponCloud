@@ -1,15 +1,15 @@
-package com.sparta.couponcloud.users.request;
+package com.sparta.couponcloud.users.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SignupRequestDto {
+public class MyDataResponseDto {
+
     private String email;
-    private String password;
     private String phoneNumber;
     private String address;
     private String name;
-    private boolean emailVerified;
+
 }

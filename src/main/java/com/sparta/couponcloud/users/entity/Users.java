@@ -61,8 +61,13 @@ public class Users {
         this.activate = true;
     }
 
-    public void updateProfile(String password, String phoneNumber, String address, String name) {
-        if (password != null) this.password = password;
+    public void changePassword(String newPassword) {
+        if (newPassword != null && !newPassword.isEmpty()) {
+            this.password = newPassword;
+        }
+    }
+
+    public void updateProfile(String phoneNumber, String address, String name) {
         if (phoneNumber != null) this.phoneNumber = phoneNumber;
         if (address != null) this.address = address;
         if (name != null) this.name = name;
@@ -71,5 +76,10 @@ public class Users {
     public void deactivate() {
         this.activate = false;
         this.deletedDate = LocalDateTime.now();
+    }
+
+    public void activate() {
+        this.activate = true;
+        this.deletedDate = null;
     }
 }

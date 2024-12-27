@@ -5,11 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SignupRequestDto {
-    private String email;
-    private String password;
+public class DataUpdateRequestDto {
     private String phoneNumber;
     private String address;
     private String name;
-    private boolean emailVerified;
 }
