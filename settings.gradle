@@ -1,1 +1,8 @@
 rootProject.name = 'couponCloud'
+
+include 'products'
+include 'orders'
+include 'wishlist'
+include 'gateway'
+include 'users'
+include 'eureka-server'
