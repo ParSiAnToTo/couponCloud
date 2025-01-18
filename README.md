@@ -4,12 +4,8 @@
 1. [프로젝트 소개](#프로젝트-소개)
 2. [프로젝트 설명](#프로젝트-설명)
   - [프로젝트 아키텍처](#프로젝트-아키텍처)
-  - [기술 스택](#기술-스택)
   - [ERD](#erd)
-  - [주요 기능](#주요-기능)
-  - [포팅 메뉴얼](#포팅-메뉴얼)
-  - [API 문서](#api-문서)
-  - [로드맵](#로드맵)
+  - [기능 구현](#기능-구현)
 3. [기술적 의사결정](#기술적-의사결정)
 4. [성능 최적화 및 트러블 슈팅](#성능-최적화-및-트러블-슈팅)
   - [성능 최적화](#성능-최적화)
@@ -26,6 +22,38 @@
 ### 프로젝트 참여자
 [최홍준](https://github.com/ParSiAnToTo)
 
+### 기술 스택
+BackEnd
+- java 21
+- spring boot 3.3.6
+- spring data jpa 3.3.6
+- spring cloud gateway 4.1.4
+- spring cloud netflix eureka 4.1.2
+- [추가 예정] spring batch
+- kafka
+
+Database
+- MySQL 8.0
+- Redis
+- [추가 예정] mongoBD
+
+
+CICD
+- Docker
+
+Test
+- K6
+- [테스트 툴 항목 추가]
+
+### 포팅 메뉴얼
+```bash
+docker-compose up -d
+```
+[프로젝트 폴더 내 더미 sql 실행 문구 등 추가 작성 예정]
+
+### API 문서
+- [Postman API 문서](https://documenter.getpostman.com/view/34362328/2sAYQamBAu)
+
 ---
 
 ## 프로젝트 설명
@@ -37,76 +65,40 @@
 - Docker로 컨테이너화된 서비스
 - MySQL, Redis
 
-### 기술 스택
-- java
-- spring boot
-- spring data jpa
-- spring cloud gateway
-- spring cloud netflix eureka
-- [추가 예정] spring batch
-- MySQL
-- Redis
-- [추가 예정] mongoBD
-- [추가 예정] Kafka
-- [테스트 툴 항목 추가]
-
 ### ERD
 [논리 ERD 기준으로 작성하여 삽입] 
 
-### 주요 기능
+### 기능 구현
+- MSA migration
+  - 서비스 모듈 분리
+    - [users, product, wishlist, orders 모듈로 서비스 분리]
+  - api gateway
+    - Resilience 4j Retry 도입
+    - Resilience 4j Circuit Breaker 도입
+  - netflix eureka
+    - [게이트웨이의 정적 매핑이 아닌 동적 매핑으로 전환]
+  - 모듈 간 통신을 위한 Feign Client 리팩토링
 
-#### 초당 10만회의 상품 조회
 
-#### 초당 1만건의 주문 처리
+- 대규모 트래픽 대비 설계
+  - 상품 재고 구현 by Redis
+    - 재고 동기화 구축
+  - 결제 모듈 구현
+    - 결제 진입 API
+    - 결제 API
+    - 결제 기록 저장
+  - 이벤트 발생에 따른 상품 오픈 
+  - 결제 테스트 데이터 작성
+    - 결제 진입 10,000건, 결제 시도 8,000건, 상품 수량 확인
 
 
-### 포팅 메뉴얼
-```bash
-docker-compose up -d
-```
-[프로젝트 폴더 내 더미 sql 실행 문구 등 추가 작성 예정]
-
-### API 문서
-- [Postman API 문서](https://documenter.getpostman.com/view/34362328/2sAYQamBAu)
-
-### 로드맵
-- [x] 모노리스 구조 MVP 구현
-  - [x] 유저 관리
-    - [x] 이메일 인증을 통한 회원 가입
-    - [x] 개인정보 암호화
-    - [x] jwt토큰을 통한 로그인
-  - [x] 상품 서비스
-    - [x] 이름, 카테고리 별 검색 
-    - [x] 상품 상세 정보 
-  - [x] 주문 서비스
-    - [x] 장바구니에 담긴 상품의 CRUD
-    - [x] 주문한 상품의 주문 취소
-    - [x] 주문한 상품의 반품
-- [ ] MSA migration
-  - [ ] 서비스 모듈 분리
-  - [ ] api gateway
-    - [ ] Resilience 4j Retry 도입
-    - [ ] Resilience 4j Circuit Breaker 도입
-  - [ ] netflix eureka
-  - [ ] 모듈 간 통신을 위한 Feign Client 리팩토링
-  - [ ] 서비스 별 DB 분리
-- [ ] 대규모 트래픽 대비 설계
-  - [ ] 상품 재고 구현 by Redis
-    - [ ] 재고 동기화 구축
-  - [ ] 결제 모듈 구현
-    - [ ] 결제 진입 API
-    - [ ] 결제 API
-    - [ ] 결제 기록 저장
-  - [ ] 이벤트 발생에 따른 상품 오픈 
-  - [ ] 결제 테스트 데이터 작성
-    - [ ] 결제 진입 10,000건, 결제 시도 8,000건, 상품 수량 확인
-- [ ] 대규모 트래픽 테스트
-  - [ ] 대규모 상품 조회 테스트를 위한 설계
-    - [ ] 상품 조회 캐시 전략
-  - [ ] 대규모 결제 테스트 작성
-    - [ ] 데이터 일관성 테스트
-    - [ ] 처리 성능 테스트
-  - [ ] 테스트 결과에 따른 디벨롭 전략 
+- 대규모 트래픽 테스트
+  - 대규모 상품 조회 테스트를 위한 설계
+    - 상품 조회 캐시 전략
+  - 대규모 결제 테스트 작성
+    - 데이터 일관성 테스트
+    - 처리 성능 테스트
+  - 테스트 결과에 따른 디벨롭 전략 
 
 ---
 
